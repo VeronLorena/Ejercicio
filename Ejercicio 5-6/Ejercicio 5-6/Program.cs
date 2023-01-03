@@ -10,12 +10,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Transactions;
 using System.Xml.Schema;
 
-namespace Ejercicio_5_6
-{
-    class program
-    {
-        static void Main(string[] args)
-        {
+
 
 
 
@@ -314,8 +309,64 @@ namespace Ejercicio_5_6
 
             }*/
 
-        }
-    }
 
 
-}
+
+            string[,] tablero = new string[10, 10];
+            int posX;
+            int posY;
+            int cantsX;
+            int AdivX = 0;
+            int cantInt = 3;
+
+            Random nX = new Random();
+            Random nY = new Random();
+
+            Console.WriteLine("Cuantas X desea colocar en el tablero? que no sea mas de 100");
+            cantsX = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < cantsX; i++)
+            {
+                var x = nX.Next(0,9);
+                var y = nY.Next(0,9);
+                tablero[x,y] = "X";
+            }
+
+            while((cantInt > 0) && (AdivX != cantsX))
+            {
+                Console.WriteLine("Ingrese la cordenada X de la posicion de la posicion que intenta buscar");
+                posX = int.Parse(Console.ReadLine());
+                Console.WriteLine("Ingrese la cordenada y de la posicion de la posicion que intenta buscar");
+                posY = int.Parse(Console.ReadLine());
+                if (tablero[posX,posY] != "X")
+                {
+                    Console.WriteLine("No hallaste la X , intentalo de nuevo");
+                    cantInt -= 1;
+                    Console.WriteLine($"Intentos  restantes{cantInt}");
+                }
+                else
+                {
+                    AdivX += 1;
+                    Console.WriteLine("Correcto ahi esta la X pero pero aun de queda " + (cantsX - AdivX)+ "X");
+                }
+            }
+            if (cantInt > 0)
+            {
+                Console.WriteLine("Lo siento te quedaste sin intentos");
+            }
+            else
+            {
+                Console.WriteLine("Felicidades lograste hallarla todas ");
+            }
+            for(int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if(tablero[i,j] != "X")
+                    {
+                        tablero[i, j] = "0";
+                    }
+                    Console.Write(tablero[i, j] +"");
+                }
+                 Console.Write("\n\n");
+            }
